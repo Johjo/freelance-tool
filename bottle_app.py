@@ -13,8 +13,11 @@ def index():
 
 @route('/distribute', method="POST")
 def distribute_controller():
-    names = [request.POST.name1, request.POST.name2, request.POST.name3, request.POST.name4, request.POST.name5,]
-    workers = [Worker(name=name, effort=10, coefficient=600) for name in names if name != ""]
+    names = request.forms.getall('names')
+    amounts = request.forms.getall('amounts')
+    days = request.forms.getall('days')
+
+    workers = [Worker(name=names[i], effort=int(days[i]), coefficient=int(amounts[i])) for i in range(len(names)) if names[i] != ""]
     distribution = distribute(int(request.POST.budget), *workers)
     return distribution
 
