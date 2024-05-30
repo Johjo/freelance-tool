@@ -13,7 +13,7 @@ def index():
 
 @route('/distribute', method="POST")
 def distribute_controller():
-    distribution = distribute(int(request.POST.budget), Worker(name="Jonathan", effort=10, coefficient=600))
+    distribution = distribute(int(request.POST.budget), Worker(name=request.POST.name, effort=10, coefficient=600))
     return distribution
 
 application = default_app()
